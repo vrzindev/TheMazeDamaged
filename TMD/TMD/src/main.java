@@ -6,9 +6,9 @@ public static void main(String[] args) {
 
 Scanner scan = new Scanner(System.in);
 
- String answer = scan.nextLine();
+System.out.println("BEM VINDO, DESEJA COMERCAR O JOGO?");
 
-System.out.println("COMERCAR O JOGO?");
+ String answer = scan.nextLine();
 
 if (answer.equalsIgnoreCase ("Sim" )) {
     System.out.println("Ok, o jogo irá comecar.");
