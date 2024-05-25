@@ -91,7 +91,7 @@ public class testUpdate {
                     break;
                 }
 
-                if (movimentosRestantes <= 0) {
+                if (movimentosRestantes <= 0) { 
                     System.out.println("Você não conseguiu escapar a tempo. Game Over!");
                     break;
                 }
