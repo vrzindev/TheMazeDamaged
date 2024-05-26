@@ -1,48 +1,31 @@
 import java.util.Random;
 import java.util.Scanner;
-//importando tudo
-import java.util.*;
 
 public class testUpdate {
-
     // Declaração dos mapas dos labirintos
     private static char[][][] maps = {
+        
         {
-            // Mapa 01 (Principal)
-            {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
-            {'#', ' ', ' ', ' ', '#', ' ', ' ', ' ', ' ', '#'},
-            {'#', ' ', '#', ' ', '#', ' ', '#', '#', ' ', '#'},
-            {'#', ' ', '#', ' ', ' ', ' ', ' ', '#', ' ', '#'},
-            {'#', ' ', '#', '#', '#', '#', ' ', '#', ' ', '#'},
-            {'#', ' ', ' ', ' ', ' ', '#', ' ', '#', ' ', '#'},
-            {'#', '#', '#', '#', ' ', '#', ' ', '#', ' ', '#'},
-            {'#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#'},
-            {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#'}
-        },
-        {
-            // Mapa 02
-            {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
-            {'#', ' ', ' ', '#', ' ', ' ', ' ', ' ', ' ', '#'},
-            {'#', '#', ' ', '#', '#', '#', '#', '#', ' ', '#'},
-            {'#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#'},
-            {'#', '#', '#', '#', '#', '#', '#', ' ', ' ', '#'},
-            {'#', ' ', ' ', ' ', ' ', ' ', '#', ' ', ' ', '#'},
-            {'#', ' ', '#', '#', '#', '#', '#', ' ', ' ', '#'},
-            {'#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#'},
-            {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#'}
-        },
-        {
-            // Mapa 03
-            {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
-            {'#', ' ', ' ', '#', ' ', ' ', ' ', ' ', ' ', '#'},
-            {'#', '#', ' ', '#', '#', '#', '#', '#', ' ', '#'},
-            {'#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#'},
-            {'#', '#', '#', '#', '#', '#', '#', ' ', ' ', '#'},
-            {'#', ' ', ' ', ' ', ' ', ' ', '#', ' ', ' ', '#'},
-            {'#', ' ', '#', '#', '#', '#', '#', ' ', ' ', '#'},
-            {'#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#'},
-            {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#'}
-        }
+             // Mapa 01 
+            {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
+            {'#', ' ', ' ', ' ', '#', ' ', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', ' ', ' ', '#'},
+            {'#', ' ', '#', ' ', '#', ' ', '#', '#', ' ', '#', ' ', '#', ' ', '#', ' ', '#', '#', ' ', '#', '#'},
+            {'#', ' ', '#', ' ', ' ', ' ', ' ', '#', ' ', '#', ' ', '#', ' ', ' ', ' ', ' ', '#', ' ', ' ', '#'},
+            {'#', ' ', '#', '#', '#', '#', ' ', '#', ' ', '#', ' ', '#', '#', '#', '#', ' ', '#', '#', ' ', '#'},
+            {'#', ' ', ' ', ' ', ' ', '#', ' ', '#', ' ', '#', ' ', ' ', ' ', ' ', '#', ' ', '#', ' ', ' ', '#'},
+            {'#', '#', '#', '#', ' ', '#', ' ', '#', ' ', '#', ' ', '#', '#', ' ', '#', ' ', '#', ' ', '#', '#'},
+            {'#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#', ' ', ' ', ' ', ' ', ' ', ' ', '#'},
+            {'#', ' ', '#', '#', '#', '#', '#', '#', '#', '#', '#', ' ', '#', '#', '#', '#', '#', '#', ' ', '#'},
+            {'#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#'},
+            {'#', '#', '#', '#', '#', '#', '#', ' ', ' ', ' ', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
+            {'#', ' ', ' ', ' ', ' ', ' ', '#', ' ', '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#'},
+            {'#', ' ', '#', '#', '#', ' ', '#', '#', '#', ' ', '#', '#', '#', ' ', '#', '#', '#', '#', ' ', '#'},
+            {'#', ' ', '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#', ' ', ' ', ' ', ' ', '#', ' ', '#'},
+            {'#', ' ', '#', ' ', '#', '#', '#', '#', '#', ' ', '#', ' ', '#', '#', '#', '#', ' ', '#', ' ', '#'},
+            {'#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#', ' ', ' ', ' ', ' ', ' ', '#', ' ', ' ', ' ', ' ', '#'},
+            {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'}
+         },
+        
     };
 
     // Declaração dos caracteres utilizados no labirinto.
@@ -53,7 +36,7 @@ public class testUpdate {
 
     // Declaração das variáveis de controle do jogo
     private static char[][] mapaAtual;
-    private static int jogadorX, jogadorY;
+    public static int jogadorX, jogadorY;
     private static int movimentosRestantes;
     private static String nomeJogador;
     private static String dificuldadeEscolhida;
@@ -61,6 +44,7 @@ public class testUpdate {
     public static String cor_vermelha = "\u001B[31m";
     public static String cor_verde = "\u001B[32m";
     public static String cor_amarelo = "\u001B[33m";
+    public static int saidaLabirintoX, saidaLabirintoY;
     
     private static Random random = new Random();
     private static Scanner scanner = new Scanner(System.in);
@@ -75,7 +59,8 @@ public class testUpdate {
 
         // Inicializa a posição do jogador e a saída do labirinto
         iniciarGame();
-
+ 
+        
         // Loop principal do jogo
         while (true) {
             exibirLabirinto();
@@ -86,18 +71,20 @@ public class testUpdate {
                 movimentoJogador(movimentoJogador);
                 movimentosRestantes--;
 
-                if (mapaAtual[jogadorY][jogadorX] == saidaLabirinto) {
+                if (mapaAtual[saidaLabirintoY][saidaLabirintoX] == emptySlot || (saidaLabirintoX == jogadorX && saidaLabirintoY == jogadorY)) {
+                    mapaAtual[jogadorY][jogadorX] = jogador;
                     System.out.println("Você escapou do labirinto! Parabéns!");
                     break;
-                }
+                }                
 
-                if (movimentosRestantes <= 0) { 
+                if (movimentosRestantes <= 0) {
                     System.out.println("Você não conseguiu escapar a tempo. Game Over!");
                     break;
                 }
             } else {
                 System.out.println("Movimento Inválido, Tente Novamente.");
             }
+            
         }
         scanner.close();
     }
@@ -162,8 +149,10 @@ public class testUpdate {
         System.out.println("\nOlá " + nomeJogador + ", você escolheu o personagem '" + jogador + "' e a dificuldade '" + dificuldadeEscolhida + "'. Boa sorte!");
     }
 
+    
     // Inicializa a posição do jogador e a saída do labirinto
-    private static void iniciarGame() {
+    public static void iniciarGame() {
+        
         do {
             jogadorX = random.nextInt(mapaAtual[0].length);
             jogadorY = random.nextInt(mapaAtual.length);
@@ -171,13 +160,16 @@ public class testUpdate {
         mapaAtual[jogadorY][jogadorX] = jogador;
 
         // Adiciona a saída no mapa
-        int saidaLabirintoX, saidaLabirintoY;
+    
         do {
             saidaLabirintoX = random.nextInt(mapaAtual[0].length);
             saidaLabirintoY = random.nextInt(mapaAtual.length);
         } while (mapaAtual[saidaLabirintoY][saidaLabirintoX] != emptySlot || (saidaLabirintoX == jogadorX && saidaLabirintoY == jogadorY));
+    
 
         mapaAtual[saidaLabirintoY][saidaLabirintoX] = saidaLabirinto;
+
+        return;
     }
 
     // Exibe o labirinto atual na tela
@@ -194,7 +186,7 @@ public class testUpdate {
             } else if (i == 2) {
                 System.out.println(cor_vermelha +"Dificuldade: "+ resetar_cores + dificuldadeEscolhida);
             } else if (i == 3) {
-                System.out.println("Movimentos Restantes: "+ cor_vermelha + movimentosRestantes + resetar_cores);
+                System.out.println("Movimentos Restantes: " + movimentosRestantes);
             } else {
                 System.out.println();
             }
@@ -202,6 +194,8 @@ public class testUpdate {
     }
 
     // Método para validar o movimento do jogador
+
+    //Se a nova posição estiver dentro dos limites do mapa, o código verifica se o caractere na posição desejada é diferente de paradeLabirinto (que é '#').
     private static boolean validarMovimentoJogador(char movimentoJogador) {
         if (movimentoJogador == 'W') {
             return jogadorY > 0 && mapaAtual[jogadorY - 1][jogadorX] != paradeLabirinto;
