@@ -87,7 +87,7 @@ public class test8 {
     public static String cor_amarelo = "\u001B[33m";
     public static int saidaLabirintoX, saidaLabirintoY;
 
-    private static double CHANCE_INIMIGO_BASE = 0.001; // % de chance base
+    private static double percentualChance = 0.001; // % de chance base
         
     private static Random random = new Random();
     private static Scanner scanner = new Scanner(System.in);
@@ -131,8 +131,8 @@ public class test8 {
 
                         // Resetar movimentos e aumentar a chance de spawn de inimigos
                         movimentosRestantes = calcularMovimentosRestantes(); // Reseta para a quantidade inicial
-                        CHANCE_INIMIGO_BASE += 0.1; // Aumenta a chance em 10% a cada fase
-                        CHANCE_INIMIGO_BASE = Math.min(CHANCE_INIMIGO_BASE, 1.0); // Limita a chance máxima a 100%
+                        percentualChance += 0.1; // Aumenta a chance em 10% a cada fase
+                        percentualChance = Math.min(percentualChance, 1.0); // Limita a chance máxima a 100%
                         
                         inimigoVivo = false; // Garante que o inimigo não comece ativo na nova fase
                         break; // Começa a próxima fase
@@ -318,7 +318,7 @@ public class test8 {
   }
 
   private static void tentarGerarInimigo() {
-    if (!inimigoVivo && random.nextDouble() < CHANCE_INIMIGO_BASE) {
+    if (!inimigoVivo && random.nextDouble() < percentualChance) {
         gerarInimigo();
     }
 }
