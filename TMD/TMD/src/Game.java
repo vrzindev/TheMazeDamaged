@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class test8 {
+public class Game {
     // Declaração dos mapas dos labirintos
     private static char[][][] maps = {
         {
