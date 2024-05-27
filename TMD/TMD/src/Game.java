@@ -79,6 +79,7 @@ public class Game {
     private static String nomeJogador;
     private static String dificuldadeEscolhida;
     public static String resetar_cores = "\u001B[0m";
+
     public static String cor_vermelha = "\u001B[31m";
     public static String cor_verde = "\u001B[32m";
     public static String cor_amarelo = "\u001B[33m";
